@@ -16,14 +16,24 @@
 
     <div class="main-content">
         <div class="tool-selection">
+
             <div class="color-selection">
                 <span class="tool-description-color"> Paintbrush color </span>
                 <div class="color-input-wrapper"><input aria-label="Paintbrush color" type="color" class="paintbrushColor-selector"> </div>
             </div>
+
+            <div class="paintbursh-selection">
+                <div class="paintbursh-tool"> </div>
+            </div>
+
+            <div class="erase-selecion">
+                <div class="erease-tool"></div>
+            </div>
+
         </div>
 
     <div class="sketch-box">
-        <div class="sketch-container"> </div>
+        <div class="sketch-container"> <div class="test"></div> </div>
     </div>
 
         <div class="tool-selection-match">
@@ -32,15 +42,20 @@
                     
                 <div class="input-label">
                     <label for="width"> Width </label>
-                    <input id="width" type="number" value="700" onkeydown="return false" step="20" min="0" max="700">
+                    <input id="width" type="number" value="700" onkeydown="return false"  step="20" min="0" max="700"> 
                 </div>
 
                 <div class="input-label">   
                     <label for="height"> Height </label>
-                    <input id="height" type="number" value="700" onkeydown="return false" step="20" min="0" max="700">
+                    <input id="height" type="number" value="700" onkeydown="return false" step="20" min="0" max="700"> 
                 </div>
 
-                <button class="resize-button"> Resize </button>  
+                <div class="input-label">
+                    <label for="pixel-size">Pixel size</label>
+                    <input id="pixel-size" type="range" min="10" value="10"> 
+                </div>
+
+                <button class="resize-button"> Clean <br> & <br> Resize </button>  
 
             </div>
 
