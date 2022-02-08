@@ -1,12 +1,18 @@
+@font-face {
+    font-family: 'Rubik';
+    src: url(fonts/rubik-font/Rubik-VariableFont_wght.ttf);
+}
+
 body {
+    font-family: 'Rubik';
     align-items: center;
+    justify-content: space-between;
     background-color: #2a2a2a;
     color: white;
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 30px;
     height: 100vh;
-    justify-content: center;
     margin: 0px;
 }
 
@@ -14,6 +20,8 @@ body {
     align-items: center;
     display: flex;
     justify-content: center;
+    width: 100%;
+    background-color: #4542d5;
 }
 
 .main-content {
@@ -21,13 +29,42 @@ body {
     gap: 50px;
 }
 
+.tool-selection {
+    justify-content: space-evenly;
+}
+
 .tool-selection, .tool-selection-match {
     display: flex;
     flex-direction: column;
-    border: 2px solid gray;
-    height: 400px;
+    height: 500px;
     width: 180px;
     gap: 20px;
+    border: 2px solid #4542d5;
+    border-radius: 8px;
+    align-items: center;
+    background-color: #363636;
+}
+
+.tool {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+    width: 100%;
+    height: 70px;
+}
+
+.tool img {
+    transition: 0.3s;
+}
+
+.tool-selected {
+    background-color: #2c2c2c;
+}
+
+.tool:hover img, .tool-selected img{
+    transition: 0.3s;
+    transform: scale(0.85);
 }
 
 .color-selection {
@@ -36,7 +73,6 @@ body {
     flex-direction: column;
     gap: 15px;
     justify-content: center;
-    margin-top: 20px;
 }
 
 .color-input-wrapper
@@ -49,17 +85,21 @@ body {
     width: 72px;
 }
 
-.erease-tool, .paintbursh-tool {
+.erease-tool {
     width: 50px;
     height: 50px;
-    background-color: white;
+}
+
+.rainbow-brush-tool, .blackbrush-increase-tool {
+    width: 54px;
+    height: 54px;
 }
 
 .resize-area {
     align-items: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 .input-label {
@@ -83,18 +123,19 @@ body {
 .sketch-box {
     align-items: center;
     align-items: flex-start;
-    display: flex;
-    height: 720px;
+    display: inline-flex;
     justify-content: center;
-    width: 720px;
+    width: 700px;
 }
+
 
 .sketch-container {
     align-content: flex-start;
-    border: 2px solid gray;
+    border: 2px solid #5351f0;
     display: inline-flex;
     flex-shrink: 0;
     flex-wrap: wrap;
+    max-width: 700px;
 }
 
 .test {
@@ -137,3 +178,22 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
       opacity: 1;
   }
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    width: 100%;
+    height: 40px;
+    background-color: #4542d5;
+}
+
+.footer-attribute a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.footer-attribute a:visited {
+    color: inherit;
+}

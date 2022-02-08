@@ -18,16 +18,24 @@
         <div class="tool-selection">
 
             <div class="color-selection">
-                <span class="tool-description-color"> Paintbrush color </span>
+                <!-- <span class="tool-description-color"> Paintbrush color </span> -->
                 <div class="color-input-wrapper"><input aria-label="Paintbrush color" type="color" class="paintbrushColor-selector"> </div>
             </div>
 
-            <div class="paintbursh-selection">
-                <div class="paintbursh-tool"> </div>
+            <div class="paintbursh-selection tool" id="0">
+                <img src="images/pen.png" class="paintbursh-tool"> 
             </div>
 
-            <div class="erase-selecion">
-                <div class="erease-tool"></div>
+            <div class="rainbow-brush-selection tool" id="1">
+                <img src="images/coloredpens.png" class="rainbow-brush-tool"></img>
+            </div>
+
+            <div class="blackbrush-increase-selection tool" id="2">
+                <img src="images/blackpens.png" class="blackbrush-increase-tool"></img>
+            </div>
+
+            <div class="eraser-selecion tool" id="3">
+                <img src="images/eraser.png" class="erease-tool"></img >
             </div>
 
         </div>
@@ -42,17 +50,17 @@
                     
                 <div class="input-label">
                     <label for="width"> Width </label>
-                    <input id="width" type="number" value="700" onkeydown="return false"  step="20" min="0" max="700"> 
+                    <input id="width" type="number" value="700" step="1" min="0" max="700"> 
                 </div>
 
                 <div class="input-label">   
                     <label for="height"> Height </label>
-                    <input id="height" type="number" value="700" onkeydown="return false" step="20" min="0" max="700"> 
+                    <input id="height" type="number" value="700" step="1" min="0" max="700"> 
                 </div>
 
                 <div class="input-label">
                     <label for="pixel-size">Pixel size</label>
-                    <input id="pixel-size" type="range" min="10" value="10"> 
+                    <input id="pixel-size" type="number" value="10"  min="10" max="800" > 
                 </div>
 
                 <button class="resize-button"> Clean <br> & <br> Resize </button>  
@@ -61,6 +69,11 @@
 
         </div>
 
+    </div>
+
+    <div class="footer">
+        <div class="footer-attribute"> <a href="https://www.flaticon.com/free-icons/eraser" title="eraser icons">Eraser icons created by Freepik - Flaticon</a> </div>
+        <div class="footer-attribute"> <a href="https://www.flaticon.com/free-icons/crayon" title="crayon icons">Crayon icons created by Freepik - Flaticon</a> </div>
     </div>
 
 </body>
