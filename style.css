@@ -4,54 +4,65 @@
 }
 
 body {
-    font-family: 'Rubik';
     align-items: center;
-    justify-content: space-between;
     background-color: #2a2a2a;
     color: white;
     display: flex;
     flex-direction: column;
+    font-family: 'Rubik';
     gap: 30px;
     height: 100vh;
+    justify-content: space-between;
     margin: 0px;
 }
 
 .header {
     align-items: center;
+    background-color: #4542d5;
     display: flex;
     justify-content: center;
     width: 100%;
-    background-color: #4542d5;
 }
 
 .main-content {
     display: flex;
     gap: 50px;
+    height: 710px;
 }
 
-.tool-selection {
-    justify-content: space-evenly;
-}
-
-.tool-selection, .tool-selection-match {
-    display: flex;
-    flex-direction: column;
-    height: 500px;
-    width: 180px;
-    gap: 20px;
-    border: 2px solid #4542d5;
-    border-radius: 8px;
+.tool-selection-right, .tool-selection-left {
     align-items: center;
     background-color: #363636;
+    border-radius: 8px;
+    border: 2px solid #4542d5;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 500px;
+    justify-content: center;
+    width: 180px;
+}
+
+.tool-selection-right {
+    justify-content: flex-start;
+}
+
+.range-info {
+    color: gray;
+    display: flex;
+    font-size: 13px;
+    margin: 0px 8px 0px 8px;
+    padding: 4px;
+    text-align: center;
 }
 
 .tool {
-    display: flex;
-    justify-content: center;
     align-items: center;
+    display: flex;
+    height: 70px;
+    justify-content: center;
     transition: 0.3s;
     width: 100%;
-    height: 70px;
 }
 
 .tool img {
@@ -63,8 +74,8 @@ body {
 }
 
 .tool:hover img, .tool-selected img{
-    transition: 0.3s;
     transform: scale(0.85);
+    transition: 0.3s;
 }
 
 .color-selection {
@@ -79,26 +90,18 @@ body {
 {
     align-items: center;
     border-radius: 100%;
+    border: 1px solid black;
     height: 72px;
     justify-content: center;
     overflow: hidden;
     width: 72px;
 }
 
-.erease-tool {
-    width: 50px;
-    height: 50px;
-}
-
-.rainbow-brush-tool, .blackbrush-increase-tool {
-    width: 54px;
-    height: 54px;
-}
-
 .resize-area {
     align-items: center;
     display: flex;
     flex-direction: column;
+    gap: 30px;
     justify-content: space-evenly;
 }
 
@@ -106,24 +109,31 @@ body {
     align-items: center;
     display: flex;
     flex-direction: column;
-    gap: 7px;
+    gap: 5px;
     justify-content: center;
-    margin-top: 20px;
 }
 
 .resize-button {
-   background-color: lightgreen;
-   border-radius: 8px;
-   border: 1px solid black;
-   height: 50px;
+   background-color: #4542d5;
+   border-radius: 12px;
+   border: 1px solid white;
+   color: white;
+   height: 60px;
    margin-top: 20px;
+   padding: 5px;
+   transition: 0.3s;
    width:70px;
+}
+
+.resize-button:hover {
+    transform: scale(0.96);
 }
 
 .sketch-box {
     align-items: center;
     align-items: flex-start;
     display: inline-flex;
+    height: 700px;
     justify-content: center;
     width: 700px;
 }
@@ -131,24 +141,31 @@ body {
 
 .sketch-container {
     align-content: flex-start;
+    border-radius: 5px;
     border: 2px solid #5351f0;
     display: inline-flex;
     flex-shrink: 0;
     flex-wrap: wrap;
     max-width: 700px;
+    padding: 1px;
 }
 
 .test {
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
     background-color: white;
     border: 1px solid black;
     box-sizing: border-box;
-
+    user-select: none;
 }
 
 input[type="number"] {
     border-radius: 10px;
     border: 1px solid black;
     height: 30px;
+    outline: none;
     text-align: center;
     vertical-align: top;
     width: 70px;
@@ -164,29 +181,19 @@ input[type="color"] {
     width: 90px;
 }
 
-
-.color-selecion-label {
-    background-color: black;
-    border-radius: 100%;
-    color:transparent;
-    height: 80px;
-    position: fixed;
-    width: 80px;
-}
-
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button {
       opacity: 1;
   }
 
 .footer {
-    display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 30px;
-    width: 100%;
-    height: 40px;
     background-color: #4542d5;
+    display: flex;
+    gap: 30px;
+    height: 40px;
+    justify-content: center;
+    width: 100%;
 }
 
 .footer-attribute a {

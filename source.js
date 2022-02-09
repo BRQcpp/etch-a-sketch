@@ -1,7 +1,7 @@
 let container = document.querySelector('.sketch-container');
-let containerMaxSize = 700; // Max size of sketching square
-let squareSideSize = 10;
-const minsquareSideSize = 10;
+let containerMaxSize = 700; 
+let squareSideSize = 15;
+const minSquareSideSize = 10;
 let mouseDown = false;
 let widthValue = document.querySelector('#width').value;
 let heightValue = document.querySelector('#height').value;
@@ -12,15 +12,18 @@ let pixelResizeInput = document.querySelector("#pixel-size");
 let paintbrushTool = document.querySelector('.paintbursh-selection');
 let rainbowbrushTool = document.querySelector('.rainbow-brush-selection');
 let blackbrushTool = document.querySelector('.blackbrush-increase-selection');
-let eraseTool = document.querySelector('.eraser-selecion');
+let eraserTool = document.querySelector('.eraser-selecion');
 let blackColorValue = 175; 
+let addSubstractBlack = 0;
 
 const paintburshSelected = paintbrushTool.getAttribute('id');
-const eraserSelected = eraseTool.getAttribute('id');
+const eraserSelected = eraserTool.getAttribute('id');
 const rainbowbrushSelected = rainbowbrushTool.getAttribute('id');
 const blackbrushSelected = blackbrushTool.getAttribute('id');
 
 let selectedTool = 0;
+
+pixelResizeInput.value = squareSideSize;
 
 pixelResizeInput.setAttribute('max', containerMaxSize);
 
@@ -53,7 +56,7 @@ blackbrushTool.addEventListener('click', () =>
     setSelected();
 });
 
-eraseTool.addEventListener('click', () => 
+eraserTool.addEventListener('click', () => 
 {
     unsetSelected();
     selectedTool = +eraserSelected;
@@ -77,15 +80,21 @@ container.addEventListener('mouseleave', () =>
 
 submitButton.addEventListener('click', () =>
 {
-    squareSideSize = pixelResizeInput.value;
-    
-    if(squareSideSize < minsquareSideSize || squareSideSize > containerMaxSize)
-        alert(`Pixel size ranges from ${minsquareSideSize} to ${containerMaxSize}`);
-    else 
+
+    if(widthInput.value < minSquareSideSize || widthInput.value > containerMaxSize || heightInput.value < minSquareSideSize || heightInput.value > containerMaxSize 
+        || pixelResizeInput.value < minSquareSideSize || pixelResizeInput.value > containerMaxSize)
+    {
+        alert(`Values can be set from ${minSquareSideSize} to ${containerMaxSize}`);
+        widthInput.value = widthValue;
+        heightInput.value = heightValue;
+        pixelResizeInput.value =  squareSideSize;
+    }
+    else
     {
         setContainerSize(squareSideSize, containerMaxSize);
         generateBoxes(widthValue, heightValue, squareSideSize);
     }
+
 });
 
 function setSelected() 
@@ -134,10 +143,18 @@ function setBrushColor(block)
         case 2 : 
         {
             block.style.setProperty("background-color", `rgb(${blackColorValue}, ${blackColorValue}, ${blackColorValue})`);
-            blackColorValue -= 5;
-            // /console.log(blackColorValue);
+
+            if(addSubstractBlack == 0)
+                blackColorValue += 5;
+            else
+                blackColorValue -=5;
+
             if(blackColorValue <= 0)
-                blackColorValue = 175;
+                addSubstractBlack = 0;
+
+            else if(blackColorValue > 175)
+                addSubstractBlack = 1;
+
         }break;
         case 3 : block.style.setProperty("background-color", 'white'); break;
     }
@@ -171,27 +188,8 @@ function setContainerSize(squareSideSize, containerMaxSize)
     document.querySelector('#width').value = widthValue;
     document.querySelector('#height').value = heightValue;
     container.style.setProperty("max-width", `${widthValue}px`);
-
 }
 
-function setPixelSize1(widthValue, heightValue, squareSideSize) 
-{   
-    let initial = squareSideSize;
-    while(widthValue % initial  != 0 && initial>10)
-        initial--;
-
-    if(initial % widthValue != 0)
-    {
-        initial = squareSideSize;
-        while(widthValue % initial != 0 && initial<700)
-        {
-            initial++;
-        }
-            
-    }
-    console.log(initial)
-
-}
 
 function generateBoxes(widthValue, heightValue, squareSideSize)
 {

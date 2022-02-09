@@ -1,61 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script src="source.js" defer></script>
     <title>Etch-A-Sketch</title>
+
 </head>
 <body>
 
-    <div class="header">
+    <div class="header"> 
         <h1>Etch-A-Sketch</h1>
     </div>
 
     <div class="main-content">
-        <div class="tool-selection">
+
+        <div class="tool-selection-left">
 
             <div class="color-selection">
-                <!-- <span class="tool-description-color"> Paintbrush color </span> -->
                 <div class="color-input-wrapper"><input aria-label="Paintbrush color" type="color" class="paintbrushColor-selector"> </div>
             </div>
 
             <div class="paintbursh-selection tool" id="0">
-                <img src="images/pen.png" class="paintbursh-tool"> 
+                <img src="images/pen.png" class="paintbursh-tool" alt="image of black crayon"> 
             </div>
 
             <div class="rainbow-brush-selection tool" id="1">
-                <img src="images/coloredpens.png" class="rainbow-brush-tool"></img>
+                <img src="images/coloredpens.png" class="rainbow-brush-tool" alt="image of three crayons in different colors"></img>
             </div>
 
             <div class="blackbrush-increase-selection tool" id="2">
-                <img src="images/blackpens.png" class="blackbrush-increase-tool"></img>
+                <img src="images/blackpens.png" class="blackbrush-increase-tool" alt="image of three crayons in different tone of black"></img>
             </div>
 
             <div class="eraser-selecion tool" id="3">
-                <img src="images/eraser.png" class="erease-tool"></img >
+                <img src="images/eraser.png" class="eraser-tool" alt="image of a eraser"></img >
             </div>
 
         </div>
 
     <div class="sketch-box">
-        <div class="sketch-container"> <div class="test"></div> </div>
+        <div class="sketch-container"> 
+            <div class="test"></div> 
+        </div>
+
     </div>
 
-        <div class="tool-selection-match">
+        <div class="tool-selection-right">
 
             <div class="resize-area">
                     
+                <div> 
+                    <span class="range-info"> All values can be set from 10 to 700 </span>
+                </div>
+
                 <div class="input-label">
                     <label for="width"> Width </label>
-                    <input id="width" type="number" value="700" step="1" min="0" max="700"> 
+                    <input id="width" type="number" value="700" step="1" min="10" max="700"> 
                 </div>
 
                 <div class="input-label">   
                     <label for="height"> Height </label>
-                    <input id="height" type="number" value="700" step="1" min="0" max="700"> 
+                    <input id="height" type="number" value="700" step="1" min="10" max="700"> 
                 </div>
 
                 <div class="input-label">
@@ -72,8 +81,8 @@
     </div>
 
     <div class="footer">
-        <div class="footer-attribute"> <a href="https://www.flaticon.com/free-icons/eraser" title="eraser icons">Eraser icons created by Freepik - Flaticon</a> </div>
-        <div class="footer-attribute"> <a href="https://www.flaticon.com/free-icons/crayon" title="crayon icons">Crayon icons created by Freepik - Flaticon</a> </div>
+        <div class="footer-attribute"> <a href="https://www.flaticon.com/free-icons/eraser" target="_blank" title="eraser icons">Eraser icons created by Freepik - Flaticon</a> </div>
+        <div class="footer-attribute"> <a href="https://www.flaticon.com/free-icons/crayon" target="_blank" title="crayon icons">Crayon icons created by Freepik - Flaticon</a> </div>
     </div>
 
 </body>
