@@ -91,6 +91,7 @@ submitButton.addEventListener('click', () =>
     }
     else
     {
+        squareSideSize = pixelResizeInput.value;
         setContainerSize(squareSideSize, containerMaxSize);
         generateBoxes(widthValue, heightValue, squareSideSize);
     }
