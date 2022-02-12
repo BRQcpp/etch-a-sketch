@@ -145,6 +145,8 @@ function setBrushColor(block)
         {
             block.style.setProperty("background-color", `rgb(${blackColorValue}, ${blackColorValue}, ${blackColorValue})`);
 
+            console.log(document.querySelector('.paintbrushColor-selector').value);
+
             if(addSubstractBlack == 0)
                 blackColorValue += 5;
             else
@@ -177,6 +179,12 @@ function addPaintEvent()
                     mouseDown = false;
                     setBrushColor(block);
             } );
+
+            block.addEventListener('mousedown', () =>
+            {
+                setBrushColor(block);
+                mouseDown = false;
+            });
     });
 }
 
