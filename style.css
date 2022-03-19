@@ -114,27 +114,27 @@ body {
 }
 
 .toogle-grid  {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     gap: 5px;
+    justify-content: center;
 }
 
 .toogle-button {
-    width: 60px;
-    height: 25px;
     background-color: #2a2a2a;
     border-radius: 10px;
     display: flex;
+    height: 25px;
+    width: 60px;
 }
 
 .toogle-left, .toogle-right {
-    width: 30px;
+    align-items: center;
     height: 25px;
     justify-content: center;
-    align-items: center;
     position: relative;
+    width: 30px;
 }
 
 .toogle-left {
@@ -154,21 +154,21 @@ body {
 }
 
 .toogle-left::before {
-    position: absolute;
-    width: 19px;
-    margin-top: -9.5px;
-    top: 50%;
-    right: 50%;
     margin-right: -9.5px;
+    margin-top: -9.5px;
+    position: absolute;
+    right: 50%;
+    top: 50%;
+    width: 19px;
 }
 
 .toogle-right::before {
-    position: absolute;
-    width: 21px;
-    margin-top: -9.5px;
-    top: 50%;
     left: 40%;
     margin-left: -9.5px;
+    margin-top: -9.5px;
+    position: absolute;
+    top: 50%;
+    width: 21px;
 }
 
 .resize-button {
@@ -177,7 +177,6 @@ body {
    border: 1px solid white;
    color: white;
    height: 60px;
-   margin-top: 20px;
    padding: 5px;
    transition: 0.3s;
    width:70px;
