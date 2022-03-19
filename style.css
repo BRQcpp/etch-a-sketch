@@ -113,6 +113,64 @@ body {
     justify-content: center;
 }
 
+.toogle-grid  {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.toogle-button {
+    width: 60px;
+    height: 25px;
+    background-color: #2a2a2a;
+    border-radius: 10px;
+    display: flex;
+}
+
+.toogle-left, .toogle-right {
+    width: 30px;
+    height: 25px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.toogle-left {
+    border-radius: 10px 0 0 10px;
+}
+
+.toogle-right {
+    border-radius: 0 10px 10px 0;
+}
+
+.toogle-left::before {
+    content: 'on';
+}
+
+.toogle-right::before {
+    content: 'off';
+}
+
+.toogle-left::before {
+    position: absolute;
+    width: 19px;
+    margin-top: -9.5px;
+    top: 50%;
+    right: 50%;
+    margin-right: -9.5px;
+}
+
+.toogle-right::before {
+    position: absolute;
+    width: 21px;
+    margin-top: -9.5px;
+    top: 50%;
+    left: 40%;
+    margin-left: -9.5px;
+}
+
 .resize-button {
    background-color: #4542d5;
    border-radius: 12px;
@@ -156,7 +214,6 @@ body {
     -webkit-user-drag: none;
     -webkit-user-select: none;
     background-color: white;
-    border: 1px solid black;
     box-sizing: border-box;
     user-select: none;
 }

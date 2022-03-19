@@ -13,6 +13,9 @@ let paintbrushTool = document.querySelector('.paintbursh-selection');
 let rainbowbrushTool = document.querySelector('.rainbow-brush-selection');
 let blackbrushTool = document.querySelector('.blackbrush-increase-selection');
 let eraserTool = document.querySelector('.eraser-selecion');
+let leftToogle = document.querySelector('.toogle-left');
+let rightToogle = document.querySelector('.toogle-right');
+let gridOff = false;
 let blackColorValue = 175; 
 let addSubstractBlack = 0;
 
@@ -22,6 +25,8 @@ const rainbowbrushSelected = rainbowbrushTool.getAttribute('id');
 const blackbrushSelected = blackbrushTool.getAttribute('id');
 
 let selectedTool = 0;
+
+leftToogle.style.setProperty('background-color', '#4542d5');
 
 pixelResizeInput.value = squareSideSize;
 
@@ -34,6 +39,45 @@ generateBoxes(widthValue, heightValue, squareSideSize);
 addPaintEvent();
 
 setSelected();
+
+leftToogle.addEventListener('click', () =>
+{
+    if(leftToogle.style.getPropertyValue('background-color') == '')
+    {
+        let block = document.querySelector('.test');
+        if(block.style.getPropertyValue('border') == 'none')
+        {
+            let blocks = document.querySelectorAll('.test');
+            for(let block of blocks)
+            {
+                block.style.setProperty('border', '1px solid black');
+            }
+            gridOff = false;
+        }
+        leftToogle.style.setProperty('background-color', '#4542d5');
+        rightToogle.style.removeProperty('background-color');
+    }
+});
+
+rightToogle.addEventListener('click', () =>
+{
+    if(rightToogle.style.getPropertyValue('background-color') == '')
+    {
+        let block = document.querySelector('.test');
+        if(block.style.getPropertyValue('border') != 'none')
+        {
+            let blocks = document.querySelectorAll('.test');
+            for(let block of blocks)
+            {
+                block.style.setProperty('border', 'none');
+            }
+            gridOff = true;
+        }
+        rightToogle.style.setProperty('background-color', '#4542d5');
+        leftToogle.style.removeProperty('background-color');
+    }
+
+});
 
 paintbrushTool.addEventListener('click', () => 
 {
@@ -139,25 +183,35 @@ function setBrushColor(block)
 {
     switch(selectedTool)
     {
-        case 0 : block.style.setProperty("background-color", `${document.querySelector('.paintbrushColor-selector').value}`); break;
-        case 1 : block.style.setProperty("background-color", `rgba(${getRandomNumber(0,255)}, ${getRandomNumber(0,255)}, ${getRandomNumber(0,255)})`); break;
+        case 0 : 
+        {
+            block.style.setProperty("background-color", `${document.querySelector('.paintbrushColor-selector').value}`); 
+            if(block.style.getPropertyValue('opacity') != ' ')
+                block.style.removeProperty('opacity');
+        } break;
+        case 1 : 
+        {
+            block.style.setProperty("background-color", `rgba(${getRandomNumber(0,255)}, ${getRandomNumber(0,255)}, ${getRandomNumber(0,255)})`); 
+            if(block.style.getPropertyValue('opacity') != ' ')
+                block.style.removeProperty('opacity');
+        } break;
         case 2 : 
         {
-            block.style.setProperty("background-color", `rgb(${blackColorValue}, ${blackColorValue}, ${blackColorValue})`);
-
-            console.log(document.querySelector('.paintbrushColor-selector').value);
-
-            if(addSubstractBlack == 0)
-                blackColorValue += 5;
-            else
-                blackColorValue -=5;
-
-            if(blackColorValue <= 0)
-                addSubstractBlack = 0;
-
-            else if(blackColorValue > 175)
-                addSubstractBlack = 1;
-
+            let colorValue = block.style.getPropertyValue("background-color");
+            if(colorValue == '')
+            {
+                colorValue = document.querySelector('.paintbrushColor-selector').value;
+                block.style.setProperty('background-color', colorValue);
+            }
+            else 
+            {
+                let opacity = block.style.getPropertyValue('opacity');
+                if(opacity == '')
+                    opacity = 0.9;
+                else if(opacity > 0.3)
+                    opacity -= 0.03;
+                block.style.setProperty('opacity', opacity);
+            }
         }break;
         case 3 : block.style.setProperty("background-color", 'white'); break;
     }
@@ -215,6 +269,8 @@ function generateBoxes(widthValue, heightValue, squareSideSize)
         let block = document.createElement('div');
         block.classList.add('test');
         container.appendChild(block);
+        if(gridOff == false)
+            block.style.setProperty('border', '1px solid black');
     }
 
     setPixelSize(squareSideSize);
