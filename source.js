@@ -13,9 +13,13 @@ let paintbrushTool = document.querySelector('.paintbursh-selection');
 let rainbowbrushTool = document.querySelector('.rainbow-brush-selection');
 let blackbrushTool = document.querySelector('.blackbrush-increase-selection');
 let eraserTool = document.querySelector('.eraser-selecion');
-let leftToogle = document.querySelector('.toogle-left');
-let rightToogle = document.querySelector('.toogle-right');
+let leftGridToogle = document.querySelector('.toogle-left');
+let rightGridToogle = document.querySelector('.toogle-right');
+let leftCursorToogle = document.querySelector('#toogle-cursor-l');
+let rightCursorToogle = document.querySelector('#toogle-cursor-r');
+let sketchContainer = document.querySelector('.sketch-container');
 let gridOff = false;
+let customCursors = false;
 let blackColorValue = 175; 
 let addSubstractBlack = 0;
 
@@ -26,7 +30,8 @@ const blackbrushSelected = blackbrushTool.getAttribute('id');
 
 let selectedTool = 0;
 
-leftToogle.style.setProperty('background-color', '#4542d5');
+leftGridToogle.style.setProperty('background-color', '#4542d5');
+rightCursorToogle.style.setProperty('background-color', '#4542d5');
 
 pixelResizeInput.value = squareSideSize;
 
@@ -40,9 +45,31 @@ addPaintEvent();
 
 setSelected();
 
-leftToogle.addEventListener('click', () =>
+leftCursorToogle.addEventListener('click', () =>
 {
-    if(leftToogle.style.getPropertyValue('background-color') == '')
+    if(leftCursorToogle.style.getPropertyValue('background-color') == '')
+    {
+        customCursors = true;
+        sketchContainer.classList.add('crayon-cursor');
+        transitionColorAnimation(leftCursorToogle, rightCursorToogle);
+    }
+});
+
+rightCursorToogle.addEventListener('click', () =>
+{
+    if(rightCursorToogle.style.getPropertyValue('background-color') == '')
+    {
+        customCursors = false;
+        sketchContainer.classList.remove('crayon-cursor');
+        transitionColorAnimation(rightCursorToogle, leftCursorToogle);
+    }
+
+
+});
+
+leftGridToogle.addEventListener('click', () =>
+{
+    if(leftGridToogle.style.getPropertyValue('background-color') == '')
     {
         let block = document.querySelector('.test');
         if(block.style.getPropertyValue('border') == 'none')
@@ -54,14 +81,13 @@ leftToogle.addEventListener('click', () =>
             }
             gridOff = false;
         }
-        leftToogle.style.setProperty('background-color', '#4542d5');
-        rightToogle.style.removeProperty('background-color');
+        transitionColorAnimation(leftGridToogle, rightGridToogle);
     }
 });
 
-rightToogle.addEventListener('click', () =>
+rightGridToogle.addEventListener('click', () =>
 {
-    if(rightToogle.style.getPropertyValue('background-color') == '')
+    if(rightGridToogle.style.getPropertyValue('background-color') == '')
     {
         let block = document.querySelector('.test');
         if(block.style.getPropertyValue('border') != 'none')
@@ -73,9 +99,9 @@ rightToogle.addEventListener('click', () =>
             }
             gridOff = true;
         }
-        rightToogle.style.setProperty('background-color', '#4542d5');
-        leftToogle.style.removeProperty('background-color');
+        transitionColorAnimation(rightGridToogle, leftGridToogle);
     }
+
 
 });
 
@@ -142,6 +168,23 @@ submitButton.addEventListener('click', () =>
 
 });
 
+function transitionColorAnimation(firstElement, secondElement)
+{
+    firstElement.addEventListener('transitionend', () =>
+    {
+        firstElement.classList.remove('toogle-animation-1');
+        secondElement.classList.add('toogle-animation-2');
+        secondElement.addEventListener('transitionend', () =>
+        {
+            secondElement.classList.remove('toogle-animation-2');
+        });
+    });
+    firstElement.classList.add('toogle-animation-1');
+
+    firstElement.style.setProperty('background-color', '#4542d5');
+    secondElement.style.removeProperty('background-color');
+}
+
 function setSelected() 
 {
     switch(selectedTool)
@@ -149,7 +192,12 @@ function setSelected()
         case 0 : document.getElementById('0').classList.add('tool-selected'); break;
         case 1 : document.getElementById('1').classList.add('tool-selected'); break;
         case 2 : document.getElementById('2').classList.add('tool-selected'); break;
-        case 3 : document.getElementById('3').classList.add('tool-selected'); break;
+        case 3 : 
+        {
+            if(customCursors)
+                sketchContainer.classList.add('eraser-cursor');
+            document.getElementById('3').classList.add('tool-selected'); 
+        } break;
     }
 }
 
@@ -160,7 +208,12 @@ function unsetSelected()
         case 0 : document.getElementById('0').classList.remove('tool-selected'); break;
         case 1 : document.getElementById('1').classList.remove('tool-selected'); break;
         case 2 : document.getElementById('2').classList.remove('tool-selected'); break;
-        case 3 : document.getElementById('3').classList.remove('tool-selected'); break;
+        case 3 :
+        {
+            if(customCursors)
+                sketchContainer.classList.remove('eraser-cursor');
+            document.getElementById('3').classList.remove('tool-selected'); 
+        } break;
     }
 }
 
