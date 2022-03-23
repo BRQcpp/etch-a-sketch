@@ -11,27 +11,22 @@ let submitButton = document.querySelector('.resize-button');
 let pixelResizeInput = document.querySelector("#pixel-size");
 let paintbrushTool = document.querySelector('.paintbursh-selection');
 let rainbowbrushTool = document.querySelector('.rainbow-brush-selection');
-let blackbrushTool = document.querySelector('.blackbrush-increase-selection');
+let shadeTool = document.querySelector('.blackbrush-increase-selection');
 let eraserTool = document.querySelector('.eraser-selecion');
-let leftGridToogle = document.querySelector('.toogle-left');
-let rightGridToogle = document.querySelector('.toogle-right');
-let leftCursorToogle = document.querySelector('#toogle-cursor-l');
-let rightCursorToogle = document.querySelector('#toogle-cursor-r');
+let leftGridToggle = document.querySelector('.toggle-left');
+let rightGridToggle = document.querySelector('.toggle-right');
+let leftCursorToggle = document.querySelector('#toggle-cursor-l');
+let rightCursorToggle = document.querySelector('#toggle-cursor-r');
 let sketchContainer = document.querySelector('.sketch-container');
 let gridOff = false;
 let customCursors = false;
-let blackColorValue = 175; 
-let addSubstractBlack = 0;
 
 const paintburshSelected = paintbrushTool.getAttribute('id');
 const eraserSelected = eraserTool.getAttribute('id');
 const rainbowbrushSelected = rainbowbrushTool.getAttribute('id');
-const blackbrushSelected = blackbrushTool.getAttribute('id');
+const blackbrushSelected = shadeTool.getAttribute('id');
 
 let selectedTool = 0;
-
-leftGridToogle.style.setProperty('background-color', '#4542d5');
-rightCursorToogle.style.setProperty('background-color', '#4542d5');
 
 pixelResizeInput.value = squareSideSize;
 
@@ -45,31 +40,29 @@ addPaintEvent();
 
 setSelected();
 
-leftCursorToogle.addEventListener('click', () =>
+leftCursorToggle.addEventListener('click', () =>
 {
-    if(leftCursorToogle.style.getPropertyValue('background-color') == '')
+    if(leftCursorToggle.classList.contains('toggle-animation-2'))
     {
         customCursors = true;
         sketchContainer.classList.add('crayon-cursor');
-        transitionColorAnimation(leftCursorToogle, rightCursorToogle);
+        transitionColorAnimation(leftCursorToggle, rightCursorToggle);
     }
 });
 
-rightCursorToogle.addEventListener('click', () =>
+rightCursorToggle.addEventListener('click', () =>
 {
-    if(rightCursorToogle.style.getPropertyValue('background-color') == '')
+    if(rightCursorToggle.classList.contains('toggle-animation-2'))
     {
         customCursors = false;
         sketchContainer.classList.remove('crayon-cursor');
-        transitionColorAnimation(rightCursorToogle, leftCursorToogle);
+        transitionColorAnimation(rightCursorToggle, leftCursorToggle);
     }
-
-
 });
 
-leftGridToogle.addEventListener('click', () =>
+leftGridToggle.addEventListener('click', () =>
 {
-    if(leftGridToogle.style.getPropertyValue('background-color') == '')
+    if(leftGridToggle.classList.contains('toggle-animation-2'))
     {
         let block = document.querySelector('.test');
         if(block.style.getPropertyValue('border') == 'none')
@@ -81,13 +74,13 @@ leftGridToogle.addEventListener('click', () =>
             }
             gridOff = false;
         }
-        transitionColorAnimation(leftGridToogle, rightGridToogle);
+        transitionColorAnimation(leftGridToggle, rightGridToggle);
     }
 });
 
-rightGridToogle.addEventListener('click', () =>
+rightGridToggle.addEventListener('click', () =>
 {
-    if(rightGridToogle.style.getPropertyValue('background-color') == '')
+    if(rightGridToggle.classList.contains('toggle-animation-2'))
     {
         let block = document.querySelector('.test');
         if(block.style.getPropertyValue('border') != 'none')
@@ -99,10 +92,8 @@ rightGridToogle.addEventListener('click', () =>
             }
             gridOff = true;
         }
-        transitionColorAnimation(rightGridToogle, leftGridToogle);
+        transitionColorAnimation(rightGridToggle, leftGridToggle);
     }
-
-
 });
 
 paintbrushTool.addEventListener('click', () => 
@@ -119,7 +110,7 @@ rainbowbrushTool.addEventListener('click', () =>
     setSelected();
 });
 
-blackbrushTool.addEventListener('click', () => 
+shadeTool.addEventListener('click', () => 
 {
     unsetSelected();
     selectedTool = +blackbrushSelected;
@@ -170,19 +161,21 @@ submitButton.addEventListener('click', () =>
 
 function transitionColorAnimation(firstElement, secondElement)
 {
-    firstElement.addEventListener('transitionend', () =>
+    if(firstElement.classList.contains('toggle-animation-2') && secondElement.classList.contains('toggle-animation-1'))
     {
-        firstElement.classList.remove('toogle-animation-1');
-        secondElement.classList.add('toogle-animation-2');
-        secondElement.addEventListener('transitionend', () =>
+        let did = true;
+        firstElement.addEventListener('transitionend', () =>
         {
-            secondElement.classList.remove('toogle-animation-2');
+            if(did)
+            {
+                secondElement.classList.remove('toggle-animation-1');;
+                secondElement.classList.add('toggle-animation-2');
+                did = false;
+            }
         });
-    });
-    firstElement.classList.add('toogle-animation-1');
-
-    firstElement.style.setProperty('background-color', '#4542d5');
-    secondElement.style.removeProperty('background-color');
+        firstElement.classList.remove('toggle-animation-2');
+        firstElement.classList.add('toggle-animation-1');
+    }
 }
 
 function setSelected() 
@@ -329,12 +322,3 @@ function generateBoxes(widthValue, heightValue, squareSideSize)
     setPixelSize(squareSideSize);
     addPaintEvent();
 }
-
-
-
-
-
-
-
-
-
