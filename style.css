@@ -4,7 +4,6 @@
 }
 
 body {
-    align-items: center;
     background-color: #2a2a2a;
     color: white;
     display: flex;
@@ -15,6 +14,9 @@ body {
     width: 100%;
     justify-content: space-between;
     margin: 0px;
+    min-width: 1168px;
+    min-height: 934px;
+    
 }
 
 .header {
@@ -22,13 +24,15 @@ body {
     background-color: #4542d5;
     display: flex;
     justify-content: center;
-    width: 100%;
+    min-width: 1168px;
 }
 
 .main-content {
+    width: 1168px;
     display: flex;
     gap: 50px;
-    height: 710px;
+    height: 700px;
+    margin: 0 auto 0 auto;
 }
 
 .tool-selection-right, .tool-selection-left {
@@ -103,12 +107,17 @@ body {
     width: 72px;
 }
 
-.resize-area {
+.resize-area, .toggle-area {
     align-items: center;
     display: flex;
     flex-direction: column;
     gap: 30px;
     justify-content: space-evenly;
+}
+
+.toggle-area {
+    margin-top: 20px;
+    gap: 15px;
 }
 
 .input-label {
@@ -221,7 +230,7 @@ body {
     flex-shrink: 0;
     flex-wrap: wrap;
     max-width: 700px;
-    padding: 1px;
+    padding: 1px 1px 2px 2px;
 }
 
 .crayon-cursor {
@@ -268,13 +277,17 @@ input[type=number]::-webkit-outer-spin-button {
   }
 
 .footer {
+    min-width: 1168px;
+    flex-shrink: 0;
     align-items: center;
     background-color: #4542d5;
     display: flex;
     gap: 30px;
     height: 40px;
     justify-content: center;
-    width: 100%;
+    overflow: auto;
+    position: relative;
+    top: 0px;
 }
 
 .footer-attribute a {

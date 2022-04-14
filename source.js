@@ -40,12 +40,27 @@ addPaintEvent();
 
 setSelected();
 
+document.querySelector('form').addEventListener('submit', (e)=>
+{
+    e.preventDefault();
+    setSizeAndGenerate();
+}, false);
+
+document.querySelector('form').addEventListener('keydown', e =>
+{
+    if(e.key == 'Enter')
+    {
+        setSizeAndGenerate();
+        e.preventDefault();
+    }  
+});
+
 leftCursorToggle.addEventListener('click', () =>
 {
     if(leftCursorToggle.classList.contains('toggle-animation-2'))
     {
         customCursors = true;
-        sketchContainer.classList.add('crayon-cursor');
+        setCustomCursor()
         transitionColorAnimation(leftCursorToggle, rightCursorToggle);
     }
 });
@@ -55,7 +70,10 @@ rightCursorToggle.addEventListener('click', () =>
     if(rightCursorToggle.classList.contains('toggle-animation-2'))
     {
         customCursors = false;
-        sketchContainer.classList.remove('crayon-cursor');
+        if(selectedTool == 0)
+            sketchContainer.classList.remove('crayon-cursor');
+        else if(selectedTool == 3)
+            sketchContainer.classList.remove('eraser-cursor');
         transitionColorAnimation(rightCursorToggle, leftCursorToggle);
     }
 });
@@ -70,7 +88,8 @@ leftGridToggle.addEventListener('click', () =>
             let blocks = document.querySelectorAll('.test');
             for(let block of blocks)
             {
-                block.style.setProperty('border', '1px solid black');
+                block.style.setProperty('border-top', '1px solid black');
+                block.style.setProperty('border-right', '1px solid black');
             }
             gridOff = false;
         }
@@ -139,9 +158,8 @@ container.addEventListener('mouseleave', () =>
     mouseDown = false;
 });
 
-submitButton.addEventListener('click', () =>
+function setSizeAndGenerate()
 {
-
     if(widthInput.value < minSquareSideSize || widthInput.value > containerMaxSize || heightInput.value < minSquareSideSize || heightInput.value > containerMaxSize 
         || pixelResizeInput.value < minSquareSideSize || pixelResizeInput.value > containerMaxSize)
     {
@@ -150,14 +168,21 @@ submitButton.addEventListener('click', () =>
         heightInput.value = heightValue;
         pixelResizeInput.value =  squareSideSize;
     }
-    else
+    else if(widthValue != widthInput.value || heightValue != heightInput.value || squareSideSize != pixelResizeInput.value)
     {
         squareSideSize = pixelResizeInput.value;
         setContainerSize(squareSideSize, containerMaxSize);
         generateBoxes(widthValue, heightValue, squareSideSize);
     }
-
-});
+    else 
+    {
+        let blocks = document.querySelectorAll('.test');
+        blocks.forEach( (block) =>
+        {
+            block.style.setProperty('background-color', 'white');
+        });
+    }
+}
 
 function transitionColorAnimation(firstElement, secondElement)
 {
@@ -188,10 +213,18 @@ function setSelected()
         case 3 : 
         {
             if(customCursors)
-                sketchContainer.classList.add('eraser-cursor');
+                setCustomCursor()
             document.getElementById('3').classList.add('tool-selected'); 
         } break;
     }
+}
+
+function setCustomCursor()
+{
+    if(selectedTool == 0)
+        sketchContainer.classList.add('crayon-cursor'); 
+    else if(selectedTool == 3)
+        sketchContainer.classList.add('eraser-cursor');
 }
 
 function unsetSelected() 
@@ -292,10 +325,21 @@ function addPaintEvent()
 
 function setContainerSize(squareSideSize, containerMaxSize)
 {
-    widthValue = squareSideSize * Math.floor(document.querySelector('#width').value/squareSideSize);
-    heightValue = squareSideSize * Math.floor(document.querySelector('#height').value/squareSideSize);
-    document.querySelector('#width').value = widthValue;
-    document.querySelector('#height').value = heightValue;
+    let width = document.querySelector('#width');
+    let height = document.querySelector('#height');
+    if(width.value < squareSideSize || height.value < squareSideSize)
+    {
+        widthValue = squareSideSize;
+        heightValue = squareSideSize;
+    }
+    else
+    {
+        widthValue = squareSideSize * Math.floor(width.value/squareSideSize);
+        heightValue = squareSideSize * Math.floor(height.value/squareSideSize);
+    }
+
+    width.value = widthValue;
+    height.value = heightValue;
     container.style.setProperty("max-width", `${widthValue}px`);
 }
 
@@ -316,7 +360,10 @@ function generateBoxes(widthValue, heightValue, squareSideSize)
         block.classList.add('test');
         container.appendChild(block);
         if(gridOff == false)
-            block.style.setProperty('border', '1px solid black');
+        {
+            block.style.setProperty('border-top', '1px solid black');
+            block.style.setProperty('border-right', '1px solid black');
+        }
     }
 
     setPixelSize(squareSideSize);
